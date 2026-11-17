@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <linearGradient id="sealGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFEBB3"/>
+      <stop offset="50%" stop-color="#D4AF37"/>
+      <stop offset="100%" stop-color="#8C6B10"/>
+    </linearGradient>
+    <linearGradient id="sealDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141E33"/>
+      <stop offset="100%" stop-color="#090D17"/>
+    </linearGradient>
+  </defs>
+  <circle cx="60" cy="60" r="56" fill="url(#sealDark)" stroke="url(#sealGold)" stroke-width="2.5" stroke-dasharray="4 2"/>
+  <circle cx="60" cy="60" r="48" fill="none" stroke="url(#sealGold)" stroke-width="1.2" opacity="0.6"/>
+  <circle cx="60" cy="60" r="44" fill="#0C1322"/>
+  <path d="M60 26L64 35L74 36L66 43L69 53L60 48L51 53L54 43L46 36L56 35Z" fill="url(#sealGold)"/>
+  <path d="M42 66L53 77L78 52" stroke="url(#sealGold)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="60" y="93" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-weight="700" font-size="8" letter-spacing="1.5" fill="#FFFFFF">DED VERIFIED</text>
+  <text x="60" y="102" text-anchor="middle" font-family="'Plus Jakarta Sans', sans-serif" font-weight="600" font-size="6.5" letter-spacing="1" fill="#D4AF37">#1661730</text>
+</svg>

@@ -1,6 +1,6 @@
 /* ============================================================
-   NAYNAWA AUTO MAINTENANCE WORKSHOP
-   script.js — subtle motion + slider + counters
+   RESIDER — Business Consulting, UAE Residency & Setup
+   script.js — Interactive Calculator, WhatsApp Generator & Motion
    ============================================================ */
 
 (() => {
@@ -8,48 +8,64 @@
 
   const prefersReducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
 
-  /* Header solid-on-scroll */
+  /* ------------------------------------------------------------
+     1. Header State on Scroll
+     ------------------------------------------------------------ */
   const header = document.getElementById("site-header");
-  const setHeaderState = () => {
+  const updateHeaderState = () => {
     if (!header) return;
-    header.classList.toggle("is-solid", window.scrollY > 14);
+    header.classList.toggle("is-solid", window.scrollY > 20);
   };
-  window.addEventListener("scroll", setHeaderState, { passive: true });
-  setHeaderState();
+  window.addEventListener("scroll", updateHeaderState, { passive: true });
+  updateHeaderState();
 
-  /* Mobile nav */
+  /* ------------------------------------------------------------
+     2. Mobile Navigation Toggle
+     ------------------------------------------------------------ */
   const nav = document.getElementById("nav");
   const navToggle = document.getElementById("nav-toggle");
-  const setNavOpen = (open) => {
+
+  const setNavState = (isOpen) => {
     if (!nav || !navToggle) return;
-    nav.classList.toggle("is-open", open);
-    navToggle.classList.toggle("is-open", open);
-    navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    nav.classList.toggle("is-open", isOpen);
+    navToggle.classList.toggle("is-open", isOpen);
+    navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
   };
 
   if (nav && navToggle) {
-    navToggle.addEventListener("click", () => setNavOpen(!nav.classList.contains("is-open")));
-    nav.addEventListener("click", (e) => {
-      const a = e.target instanceof Element ? e.target.closest('a[href^="#"]') : null;
-      if (a) setNavOpen(false);
+    navToggle.addEventListener("click", () => {
+      const isOpen = nav.classList.contains("is-open");
+      setNavState(!isOpen);
     });
+
+    // Close on navigation link click
+    nav.addEventListener("click", (e) => {
+      const link = e.target instanceof Element ? e.target.closest('a[href^="#"]') : null;
+      if (link) setNavState(false);
+    });
+
+    // Close on click outside
     document.addEventListener("click", (e) => {
       const target = e.target;
       if (!(target instanceof Node)) return;
-      if (!nav.contains(target) && !navToggle.contains(target)) setNavOpen(false);
+      if (!nav.contains(target) && !navToggle.contains(target)) {
+        setNavState(false);
+      }
     });
   }
 
-  /* Scroll reveal */
-  const revealEls = Array.from(document.querySelectorAll(".reveal"));
-  revealEls.forEach((el, idx) => {
-    el.style.transitionDelay = `${Math.min(260, (idx % 6) * 60)}ms`;
+  /* ------------------------------------------------------------
+     3. Scroll Reveal Animations
+     ------------------------------------------------------------ */
+  const revealElements = Array.from(document.querySelectorAll(".reveal"));
+  revealElements.forEach((el, index) => {
+    el.style.transitionDelay = `${Math.min(300, (index % 5) * 60)}ms`;
   });
 
   if (prefersReducedMotion || !("IntersectionObserver" in window)) {
-    revealEls.forEach((el) => el.classList.add("is-in"));
+    revealElements.forEach((el) => el.classList.add("is-in"));
   } else {
-    const io = new IntersectionObserver(
+    const observer = new IntersectionObserver(
       (entries, obs) => {
         for (const entry of entries) {
           if (!entry.isIntersecting) continue;
@@ -57,154 +73,279 @@
           obs.unobserve(entry.target);
         }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -60px 0px" }
+      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
     );
-    revealEls.forEach((el) => io.observe(el));
+    revealElements.forEach((el) => observer.observe(el));
   }
 
-  /* Counters */
-  const counterEls = Array.from(document.querySelectorAll("[data-count-to]"));
-  const animateCounter = (el) => {
-    const raw = el.getAttribute("data-count-to") ?? "";
-    const target = Number(raw);
+  /* ------------------------------------------------------------
+     4. Animated Number Counters
+     ------------------------------------------------------------ */
+  const counterElements = Array.from(document.querySelectorAll("[data-count-to]"));
+
+  const runCounter = (el) => {
+    const targetStr = el.getAttribute("data-count-to") ?? "";
+    const target = Number(targetStr);
     if (!Number.isFinite(target)) return;
 
-    const decimals = Number(el.getAttribute("data-decimals") ?? "0");
     const suffix = el.getAttribute("data-suffix") ?? "";
-
-    const duration = 1200;
+    const format = el.getAttribute("data-format") ?? "plain";
+    const duration = 1400;
     const start = performance.now();
-    const from = 0;
 
-    const step = (now) => {
-      const t = Math.min(1, (now - start) / duration);
-      const ease = 1 - Math.pow(1 - t, 3);
-      const value = from + (target - from) * ease;
-      const out = decimals > 0 ? value.toFixed(decimals) : String(Math.floor(value));
-      el.textContent = `${out}${suffix}`;
-      if (t < 1) requestAnimationFrame(step);
+    const frame = (now) => {
+      const progress = Math.min(1, (now - start) / duration);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      const current = Math.floor(target * ease);
+
+      if (format === "comma") {
+        el.textContent = `${current.toLocaleString()}${suffix}`;
+      } else {
+        el.textContent = `${current}${suffix}`;
+      }
+
+      if (progress < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        el.textContent = `${target}${suffix}`;
+      }
     };
 
-    requestAnimationFrame(step);
+    requestAnimationFrame(frame);
   };
 
-  if (counterEls.length) {
+  if (counterElements.length) {
     if (prefersReducedMotion || !("IntersectionObserver" in window)) {
-      counterEls.forEach((el) => {
+      counterElements.forEach((el) => {
         const suffix = el.getAttribute("data-suffix") ?? "";
         el.textContent = `${el.getAttribute("data-count-to")}${suffix}`;
       });
     } else {
-      const counterIO = new IntersectionObserver(
+      const counterObserver = new IntersectionObserver(
         (entries, obs) => {
           for (const entry of entries) {
             if (!entry.isIntersecting) continue;
-            animateCounter(entry.target);
+            runCounter(entry.target);
             obs.unobserve(entry.target);
           }
         },
-        { threshold: 0.55 }
+        { threshold: 0.3 }
       );
-      counterEls.forEach((el) => counterIO.observe(el));
+      counterElements.forEach((el) => counterObserver.observe(el));
     }
   }
 
-  /* Testimonials slider */
-  const slider = document.querySelector("[data-slider]");
-  if (slider) {
-    const track = slider.querySelector("[data-track]");
-    const btnPrev = slider.querySelector("[data-prev]");
-    const btnNext = slider.querySelector("[data-next]");
-    const dotsWrap = slider.querySelector("[data-dots]");
-    const slides = track ? Array.from(track.children) : [];
-    let index = 0;
-    let timer = null;
+  /* ------------------------------------------------------------
+     5. Interactive Setup & Visa Estimator / Calculator
+     ------------------------------------------------------------ */
+  const calcState = {
+    service: "business-setup",
+    jurisdiction: "freezone",
+    visas: "1",
+    bank: true,
+    vip: true,
+    marketing: false
+  };
 
-    const clampIndex = (i) => {
-      const len = slides.length || 1;
-      return ((i % len) + len) % len;
-    };
+  const planTitles = {
+    "business-setup": {
+      freezone: "Dubai Freezone Company Formation + Investor Visa",
+      mainland: "Dubai Mainland (DED) Company Formation + LLC Setup",
+      trader: "Dubai DED Trader License Formation (Digital/E-Commerce)"
+    },
+    "golden-visa": {
+      freezone: "UAE 10-Year Golden Visa (Investor / Entrepreneur Category)",
+      mainland: "UAE 10-Year Golden Visa (Direct DED Executive / Investor)",
+      trader: "UAE 10-Year Golden Visa Consultation & Fast-Track"
+    },
+    "trader-license": {
+      freezone: "Dubai E-Commerce / Freezone Digital Startup License",
+      mainland: "Official Dubai DED Trader License (Activity 741302)",
+      trader: "Official Dubai DED Trader License (DE@AE Tier 1)"
+    },
+    "investor-visa": {
+      freezone: "Dubai Freezone Investor & Family Residency Visa Package",
+      mainland: "Dubai Mainland Partner & Family Residency Visa Package",
+      trader: "Investor & Dependent Sponsorship Residency Package"
+    }
+  };
 
-    const renderDots = () => {
-      if (!dotsWrap) return;
-      dotsWrap.innerHTML = "";
-      slides.forEach((_, i) => {
-        const b = document.createElement("button");
-        b.type = "button";
-        b.className = `dot-btn${i === index ? " is-active" : ""}`;
-        b.setAttribute("aria-label", `Go to testimonial ${i + 1}`);
-        b.addEventListener("click", () => goTo(i));
-        dotsWrap.appendChild(b);
-      });
-    };
+  const updateCalculatorUI = () => {
+    const summaryTitle = document.getElementById("summary-title");
+    const summaryTimeline = document.getElementById("summary-timeline");
+    const summaryBanking = document.getElementById("summary-banking");
+    const summaryFeaturesList = document.getElementById("summary-features-list");
+    const btnCalcQuote = document.getElementById("btn-calc-quote");
 
-    const apply = () => {
-      if (!track) return;
-      track.style.transform = `translateX(-${index * 100}%)`;
-      if (dotsWrap) {
-        const dots = dotsWrap.querySelectorAll(".dot-btn");
-        dots.forEach((d, i) => d.classList.toggle("is-active", i === index));
+    if (!summaryTitle || !btnCalcQuote) return;
+
+    // Determine Title
+    const title = planTitles[calcState.service]?.[calcState.jurisdiction] ?? "UAE Business Setup & Residency Package";
+    summaryTitle.textContent = title;
+
+    // Determine Timeline
+    let timeline = "3 to 5 Working Days";
+    if (calcState.service === "golden-visa") {
+      timeline = "5 to 8 Working Days (VIP Nomination)";
+    } else if (calcState.jurisdiction === "trader") {
+      timeline = "2 to 4 Working Days";
+    }
+    if (calcState.vip) {
+      timeline += " (VIP Fast-Track Included)";
+    }
+    summaryTimeline.textContent = timeline;
+
+    // Banking
+    summaryBanking.textContent = calcState.bank ? "Emirates NBD / Mashreq / Wio Assistance" : "Client Managed";
+
+    // Feature list
+    const features = [];
+    if (calcState.service === "business-setup") {
+      features.push("Trade Name Reservation & Initial DED/Freezone Approvals");
+      features.push("Official Certificate of Incorporation & Memorandum of Association");
+    } else if (calcState.service === "golden-visa") {
+      features.push("Comprehensive Golden Visa Eligibility & Asset/Income Audit");
+      features.push("Government Nomination & 10-Year Long-Term Visa Grant");
+    } else if (calcState.service === "trader-license") {
+      features.push("Official Dubai Trader License Issuance (DED Approved)");
+      features.push("DE@AE Tier 1 Digital Economy Initiative Support");
+    } else {
+      features.push("Investor / Partner Entry Permit & Quota Allocation");
+      features.push("Family Sponsorship Support (Spouse & Children)");
+    }
+
+    if (calcState.visas !== "0") {
+      features.push(`${calcState.visas}x UAE Residency Visa(s) Stamping & E-Visa Processing`);
+    }
+
+    if (calcState.vip) {
+      features.push("VIP Medical Fitness & Priority Emirates ID Biometrics Concierge");
+    }
+
+    if (calcState.bank) {
+      features.push("Corporate Bank Account Profile Dossier & Bank Introduction");
+    }
+
+    if (calcState.marketing) {
+      features.push("Marketing Management & Go-To-Market Brand Launch (Activity 741302)");
+    }
+
+    if (summaryFeaturesList) {
+      summaryFeaturesList.innerHTML = features.map((f) => `<li>${f}</li>`).join("");
+    }
+
+    // Build WhatsApp URL
+    const message = `Hello Anas Resider,
+
+I calculated a package on your website:
+• Selected Plan: ${title}
+• Jurisdiction: ${calcState.jurisdiction.toUpperCase()}
+• Residency Visas: ${calcState.visas}
+• Corporate Banking: ${calcState.bank ? "Yes" : "No"}
+• VIP Medical & Emirates ID: ${calcState.vip ? "Yes" : "No"}
+• Marketing Management: ${calcState.marketing ? "Yes" : "No"}
+
+Please provide me with the exact quote and process steps.`;
+
+    btnCalcQuote.href = `https://wa.me/971563224851?text=${encodeURIComponent(message)}`;
+  };
+
+  // Button Group Handlers
+  const bindButtonGroup = (containerId, stateKey) => {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    container.addEventListener("click", (e) => {
+      const btn = e.target instanceof Element ? e.target.closest(".calc-opt-btn") : null;
+      if (!btn) return;
+
+      const value = btn.getAttribute("data-value");
+      if (!value) return;
+
+      calcState[stateKey] = value;
+
+      Array.from(container.querySelectorAll(".calc-opt-btn")).forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      updateCalculatorUI();
+    });
+  };
+
+  bindButtonGroup("opt-service", "service");
+  bindButtonGroup("opt-jurisdiction", "jurisdiction");
+  bindButtonGroup("opt-visas", "visas");
+
+  // Checkbox Handlers
+  const bindCheckbox = (id, stateKey) => {
+    const chk = document.getElementById(id);
+    if (!chk) return;
+    chk.addEventListener("change", (e) => {
+      const target = e.target;
+      if (target instanceof HTMLInputElement) {
+        calcState[stateKey] = target.checked;
+        updateCalculatorUI();
       }
+    });
+  };
+
+  bindCheckbox("chk-bank", "bank");
+  bindCheckbox("chk-vip", "vip");
+  bindCheckbox("chk-marketing", "marketing");
+
+  // Initial Calculation Run
+  updateCalculatorUI();
+
+  /* ------------------------------------------------------------
+     6. Consultation Booking Form Handlers (WhatsApp & Email)
+     ------------------------------------------------------------ */
+  const form = document.getElementById("consultation-form");
+  const btnEmailSubmit = document.getElementById("btn-submit-email");
+
+  const buildFormMessage = () => {
+    const name = document.getElementById("form-name")?.value.trim() ?? "";
+    const phone = document.getElementById("form-phone")?.value.trim() ?? "";
+    const email = document.getElementById("form-email")?.value.trim() ?? "";
+    const service = document.getElementById("form-service")?.value ?? "";
+    const note = document.getElementById("form-message")?.value.trim() ?? "";
+
+    return {
+      name,
+      phone,
+      email,
+      service,
+      note,
+      fullText: `Hello Muhammad Anas (RESIDER),
+
+I would like to consult regarding UAE Business & Residency:
+• Name: ${name || "Client"}
+• Phone / WhatsApp: ${phone || "Not provided"}
+• Email: ${email || "Not provided"}
+• Service Needed: ${service}
+• Details / Questions: ${note || "None"}
+
+Looking forward to your guidance.`
     };
+  };
 
-    const goTo = (i) => {
-      index = clampIndex(i);
-      apply();
-      restart();
-    };
-
-    const next = () => goTo(index + 1);
-    const prev = () => goTo(index - 1);
-
-    const stop = () => {
-      if (timer) window.clearInterval(timer);
-      timer = null;
-    };
-
-    const restart = () => {
-      stop();
-      if (prefersReducedMotion) return;
-      timer = window.setInterval(next, 5500);
-    };
-
-    renderDots();
-    apply();
-    restart();
-
-    btnNext?.addEventListener("click", next);
-    btnPrev?.addEventListener("click", prev);
-
-    slider.addEventListener("mouseenter", stop);
-    slider.addEventListener("mouseleave", restart);
-
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowRight") next();
-      if (e.key === "ArrowLeft") prev();
+  if (form) {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const data = buildFormMessage();
+      if (!data.name || !data.phone) {
+        alert("Please enter your name and phone number.");
+        return;
+      }
+      const waUrl = `https://wa.me/971563224851?text=${encodeURIComponent(data.fullText)}`;
+      window.open(waUrl, "_blank", "noopener,noreferrer");
     });
   }
 
-  /* Micro-interaction: subtle 3D tilt for cards (desktop only) */
-  const canHover = window.matchMedia?.("(hover: hover) and (pointer: fine)")?.matches ?? false;
-  if (!prefersReducedMotion && canHover) {
-    const tiltEls = Array.from(document.querySelectorAll(".card"));
-    const maxDeg = 6;
-
-    const onMove = (el, e) => {
-      const rect = el.getBoundingClientRect();
-      const px = (e.clientX - rect.left) / rect.width;
-      const py = (e.clientY - rect.top) / rect.height;
-      const ry = (px - 0.5) * (maxDeg * 2);
-      const rx = -(py - 0.5) * (maxDeg * 2);
-      el.style.setProperty("--rx", `${rx.toFixed(2)}deg`);
-      el.style.setProperty("--ry", `${ry.toFixed(2)}deg`);
-    };
-
-    for (const el of tiltEls) {
-      el.addEventListener("pointermove", (e) => onMove(el, e));
-      el.addEventListener("pointerleave", () => {
-        el.style.setProperty("--rx", "0deg");
-        el.style.setProperty("--ry", "0deg");
-      });
-    }
+  if (btnEmailSubmit) {
+    btnEmailSubmit.addEventListener("click", () => {
+      const data = buildFormMessage();
+      const subject = encodeURIComponent(`Consultation Inquiry: ${data.service} — ${data.name}`);
+      const body = encodeURIComponent(data.fullText);
+      window.location.href = `mailto:anasresider@gmail.com?subject=${subject}&body=${body}`;
+    });
   }
 })();
