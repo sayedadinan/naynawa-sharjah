@@ -1,56 +1,56 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" fill="none">
   <defs>
-    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#D4AF37" stop-opacity="0.15"/>
-      <stop offset="100%" stop-color="#D4AF37" stop-opacity="0"/>
+    <linearGradient id="skyGradLight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/>
     </linearGradient>
-    <linearGradient id="burjGlow" x1="50%" y1="0%" x2="50%" y2="100%">
-      <stop offset="0%" stop-color="#F5E0A3" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="#D4AF37" stop-opacity="0.05"/>
+    <linearGradient id="burjGlowLight" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#2563EB" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0.05"/>
     </linearGradient>
   </defs>
   <!-- Background glow -->
-  <circle cx="600" cy="180" r="220" fill="url(#skyGrad)" filter="blur(40px)"/>
+  <circle cx="600" cy="180" r="220" fill="url(#skyGradLight)" filter="blur(40px)"/>
   
   <!-- Subtle Grid lines -->
-  <path d="M0 380H1200M0 350H1200M0 310H1200" stroke="#D4AF37" stroke-opacity="0.07" stroke-width="1"/>
+  <path d="M0 380H1200M0 350H1200M0 310H1200" stroke="#CBD5E1" stroke-opacity="0.6" stroke-width="1"/>
   
-  <!-- Modern Dubai Skyline Silhouettes -->
+  <!-- Modern Dubai Skyline Silhouettes in elegant slate & light corporate blues -->
   <!-- Low rise left -->
-  <rect x="80" y="320" width="45" height="60" fill="#0E1626" stroke="#D4AF37" stroke-opacity="0.15"/>
-  <rect x="135" y="280" width="55" height="100" fill="#111B30" stroke="#D4AF37" stroke-opacity="0.2"/>
-  <rect x="200" y="230" width="60" height="150" fill="#0C1424" stroke="#D4AF37" stroke-opacity="0.2"/>
-  <polygon points="260,230 290,190 320,230" fill="#131E35" stroke="#D4AF37" stroke-opacity="0.25"/>
-  <rect x="260" y="230" width="60" height="150" fill="#131E35" stroke="#D4AF37" stroke-opacity="0.25"/>
-  <rect x="330" y="260" width="70" height="120" fill="#10182C" stroke="#D4AF37" stroke-opacity="0.18"/>
-  <rect x="410" y="210" width="50" height="170" fill="#142038" stroke="#D4AF37" stroke-opacity="0.22"/>
+  <rect x="80" y="320" width="45" height="60" fill="#F1F5F9" stroke="#94A3B8" stroke-opacity="0.4"/>
+  <rect x="135" y="280" width="55" height="100" fill="#E2E8F0" stroke="#94A3B8" stroke-opacity="0.4"/>
+  <rect x="200" y="230" width="60" height="150" fill="#F1F5F9" stroke="#94A3B8" stroke-opacity="0.5"/>
+  <polygon points="260,230 290,190 320,230" fill="#E2E8F0" stroke="#94A3B8" stroke-opacity="0.5"/>
+  <rect x="260" y="230" width="60" height="150" fill="#E2E8F0" stroke="#94A3B8" stroke-opacity="0.5"/>
+  <rect x="330" y="260" width="70" height="120" fill="#F8FAFC" stroke="#94A3B8" stroke-opacity="0.4"/>
+  <rect x="410" y="210" width="50" height="170" fill="#E2E8F0" stroke="#94A3B8" stroke-opacity="0.45"/>
   
   <!-- BURJ KHALIFA CENTERPIECE -->
   <!-- Spire -->
-  <line x1="600" y1="20" x2="600" y2="100" stroke="#FFE9A3" stroke-width="2.5"/>
-  <polygon points="597,100 603,100 602,60 598,60" fill="#FFE9A3"/>
-  <polygon points="594,150 606,150 603,100 597,100" fill="url(#burjGlow)" stroke="#D4AF37" stroke-opacity="0.4"/>
+  <line x1="600" y1="20" x2="600" y2="100" stroke="#2563EB" stroke-width="2.5"/>
+  <polygon points="597,100 603,100 602,60 598,60" fill="#2563EB"/>
+  <polygon points="594,150 606,150 603,100 597,100" fill="url(#burjGlowLight)" stroke="#3B82F6" stroke-opacity="0.5"/>
   <!-- Tier 1 -->
-  <polygon points="588,200 612,200 606,150 594,150" fill="url(#burjGlow)" stroke="#D4AF37" stroke-opacity="0.45"/>
+  <polygon points="588,200 612,200 606,150 594,150" fill="url(#burjGlowLight)" stroke="#2563EB" stroke-opacity="0.5"/>
   <!-- Tier 2 -->
-  <polygon points="580,260 620,260 612,200 588,200" fill="#17243E" stroke="#D4AF37" stroke-opacity="0.5"/>
+  <polygon points="580,260 620,260 612,200 588,200" fill="#DBEAFE" stroke="#3B82F6" stroke-opacity="0.6"/>
   <!-- Tier 3 with setbacks -->
-  <polygon points="570,320 630,320 620,260 580,260" fill="#1A2846" stroke="#D4AF37" stroke-opacity="0.6"/>
+  <polygon points="570,320 630,320 620,260 580,260" fill="#BFDBFE" stroke="#2563EB" stroke-opacity="0.6"/>
   <!-- Base tier -->
-  <polygon points="555,380 645,380 630,320 570,320" fill="#1E2E4E" stroke="#D4AF37" stroke-opacity="0.7"/>
+  <polygon points="555,380 645,380 630,320 570,320" fill="#93C5FD" stroke="#1D4ED8" stroke-opacity="0.7"/>
   <!-- Architectural setback lines on Burj -->
-  <line x1="590" y1="230" x2="610" y2="230" stroke="#FFE9A3" stroke-opacity="0.6" stroke-width="1.5"/>
-  <line x1="583" y1="285" x2="617" y2="285" stroke="#FFE9A3" stroke-opacity="0.6" stroke-width="1.5"/>
-  <line x1="575" y1="345" x2="625" y2="345" stroke="#FFE9A3" stroke-opacity="0.6" stroke-width="1.5"/>
-  <circle cx="600" cy="20" r="3" fill="#FFE9A3"/>
+  <line x1="590" y1="230" x2="610" y2="230" stroke="#1D4ED8" stroke-opacity="0.6" stroke-width="1.5"/>
+  <line x1="583" y1="285" x2="617" y2="285" stroke="#1D4ED8" stroke-opacity="0.6" stroke-width="1.5"/>
+  <line x1="575" y1="345" x2="625" y2="345" stroke="#1D4ED8" stroke-opacity="0.6" stroke-width="1.5"/>
+  <circle cx="600" cy="20" r="3" fill="#2563EB"/>
 
   <!-- Right side towers -->
-  <rect x="660" y="220" width="55" height="160" fill="#142038" stroke="#D4AF37" stroke-opacity="0.25"/>
-  <polygon points="660,220 687,175 715,220" fill="#142038" stroke="#D4AF37" stroke-opacity="0.25"/>
-  <rect x="725" y="250" width="65" height="130" fill="#10182C" stroke="#D4AF37" stroke-opacity="0.2"/>
-  <rect x="800" y="195" width="70" height="185" fill="#131E35" stroke="#D4AF37" stroke-opacity="0.3"/>
-  <line x1="835" y1="160" x2="835" y2="195" stroke="#D4AF37" stroke-opacity="0.4" stroke-width="2"/>
-  <rect x="880" y="270" width="60" height="110" fill="#0F1728" stroke="#D4AF37" stroke-opacity="0.2"/>
-  <rect x="950" y="240" width="50" height="140" fill="#111B30" stroke="#D4AF37" stroke-opacity="0.18"/>
-  <rect x="1010" y="300" width="60" height="80" fill="#0C1424" stroke="#D4AF37" stroke-opacity="0.15"/>
+  <rect x="660" y="220" width="55" height="160" fill="#E2E8F0" stroke="#94A3B8" stroke-opacity="0.45"/>
+  <polygon points="660,220 687,175 715,220" fill="#E2E8F0" stroke="#94A3B8" stroke-opacity="0.45"/>
+  <rect x="725" y="250" width="65" height="130" fill="#F1F5F9" stroke="#94A3B8" stroke-opacity="0.4"/>
+  <rect x="800" y="195" width="70" height="185" fill="#E2E8F0" stroke="#94A3B8" stroke-opacity="0.5"/>
+  <line x1="835" y1="160" x2="835" y2="195" stroke="#2563EB" stroke-opacity="0.4" stroke-width="2"/>
+  <rect x="880" y="270" width="60" height="110" fill="#F8FAFC" stroke="#94A3B8" stroke-opacity="0.35"/>
+  <rect x="950" y="240" width="50" height="140" fill="#F1F5F9" stroke="#94A3B8" stroke-opacity="0.4"/>
+  <rect x="1010" y="300" width="60" height="80" fill="#E2E8F0" stroke="#94A3B8" stroke-opacity="0.35"/>
 </svg>

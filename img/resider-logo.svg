@@ -1,27 +1,25 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 64" fill="none">
   <defs>
-    <linearGradient id="logoGold" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FCEFD2" />
-      <stop offset="35%" stop-color="#D4AF37" />
-      <stop offset="70%" stop-color="#AA8222" />
-      <stop offset="100%" stop-color="#E5C365" />
+    <linearGradient id="shieldBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A8A" />
+      <stop offset="100%" stop-color="#0F172A" />
     </linearGradient>
-    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#18233C" />
-      <stop offset="100%" stop-color="#0B101E" />
+    <linearGradient id="accentBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="100%" stop-color="#1D4ED8" />
     </linearGradient>
   </defs>
   <!-- Shield Icon -->
   <g transform="translate(6, 6)">
-    <rect width="52" height="52" rx="14" fill="url(#shieldGrad)" stroke="url(#logoGold)" stroke-width="1.8" />
-    <!-- Monogram R -->
-    <path d="M18 14H30C34.418 14 38 17.358 38 21.5C38 25.642 34.418 29 30 29H24.5V38H18V14Z" fill="url(#logoGold)" />
-    <path d="M29 27.5L37.5 38H30.5L24 28" fill="url(#logoGold)" />
-    <circle cx="28" cy="21.5" r="3.2" fill="#0B101E" />
+    <rect width="52" height="52" rx="14" fill="url(#shieldBlue)" stroke="#2563EB" stroke-width="1.5" />
+    <!-- Monogram R in crisp White -->
+    <path d="M18 14H30C34.418 14 38 17.358 38 21.5C38 25.642 34.418 29 30 29H24.5V38H18V14Z" fill="#FFFFFF" />
+    <path d="M29 27.5L37.5 38H30.5L24 28" fill="#FFFFFF" />
+    <circle cx="28" cy="21.5" r="3.2" fill="#1E3A8A" />
     <!-- Small star sparkle -->
-    <path d="M42 10L43 13L46 14L43 15L42 18L41 15L38 14L41 13Z" fill="#FCEFD2" />
+    <path d="M42 10L43 13L46 14L43 15L42 18L41 15L38 14L41 13Z" fill="#60A5FA" />
   </g>
-  <!-- Brand Text -->
-  <text x="74" y="34" font-family="'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="800" font-size="24" letter-spacing="4" fill="#FFFFFF">RESIDER</text>
-  <text x="75" y="49" font-family="'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="500" font-size="8.5" letter-spacing="2.2" fill="#D4AF37">BUSINESS CONSULTING &amp; SETUP</text>
+  <!-- Brand Text (Deep Slate/Navy for Light Background) -->
+  <text x="74" y="34" font-family="'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="800" font-size="24" letter-spacing="4" fill="#0F172A">RESIDER</text>
+  <text x="75" y="49" font-family="'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="600" font-size="8.5" letter-spacing="2.2" fill="#2563EB">BUSINESS CONSULTING &amp; SETUP</text>
 </svg>
